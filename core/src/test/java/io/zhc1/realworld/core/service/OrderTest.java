@@ -33,7 +33,7 @@ public class OrderTest {
     }
 
     @Test
-    void whenWriteComment_thenShouldSaveToRepository() {
+    void createOrder_thenShouldSaveToRepository() {
         // given
         Order order = new Order(article, customer);
         when(orderRepository.save(order)).thenReturn(order);
