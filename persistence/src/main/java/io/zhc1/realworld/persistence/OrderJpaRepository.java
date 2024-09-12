@@ -10,7 +10,7 @@ interface OrderJpaRepository extends JpaRepository<Order, Integer> {
 
     List<Order> findByArticleOrderByCreatedAtDesc(Article article);
 
-    List<Order> findByUser(User user);
+    List<Order> findByCustomer(User customer);
 
 
 }

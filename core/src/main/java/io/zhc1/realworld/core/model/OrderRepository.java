@@ -11,7 +11,7 @@ public interface OrderRepository {
 
     List<Order> findByArticle(Article article);
 
-    List<Order> findByUser(User user);
+    List<Order> findByCustomer(User customer);
 
     void delete(Order order);
 

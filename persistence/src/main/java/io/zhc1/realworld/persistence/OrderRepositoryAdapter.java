@@ -31,8 +31,8 @@ public class OrderRepositoryAdapter implements OrderRepository {
     }
 
     @Override
-    public List<Order> findByUser(User user) {
-        return orderJpaRepository.findByUser(user);
+    public List<Order> findByCustomer(User customer) {
+        return orderJpaRepository.findByCustomer(customer);
     }
 
     @Override

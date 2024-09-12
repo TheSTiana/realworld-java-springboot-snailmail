@@ -23,7 +23,7 @@ public class OrderService {
     }
 
     public List<Order> getOrders(User user) {
-        return orderRepository.findByUser(user);
+        return orderRepository.findByCustomer(user);
     }
 
     public Order create(Order order) {
