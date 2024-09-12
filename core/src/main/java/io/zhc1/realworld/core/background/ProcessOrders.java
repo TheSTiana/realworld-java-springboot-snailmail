@@ -27,11 +27,13 @@ public class ProcessOrders {
         this.faker = new Faker();
     }
 
-    @Scheduled(cron = "*/30 * * * * *")
+    @Scheduled(cron = "*/10 * * * * *")
     public void process() {
-        createOrders(faker);
+        //createOrders(faker);
 
+        System.out.println("FINDING UNPROCESSED ORDERS");
         List<Order> orders = orderService.getUnprocessedOrders();
+        System.out.println("FOUND " + orders.size() + " ORDERS");
 
         for (Order order : orders) {
 
@@ -51,6 +53,7 @@ public class ProcessOrders {
 
             if(num < 20){
                 order.increaseErrors();
+                orderService.update(order);
                 System.out.println("THE SUPPLIER SHOULD BE FIRED");
                 continue;
             }
@@ -58,6 +61,7 @@ public class ProcessOrders {
             orderService.update(order);
             System.out.println("ORDER HAS BEEN GHOSTED");
         }
+
     }
 
     private void createOrders(Faker faker){
