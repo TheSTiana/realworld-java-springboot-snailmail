@@ -1,7 +1,7 @@
 dependencies {
     implementation(project(":core"))
 
-    runtimeOnly("com.h2database:h2")
+    runtimeOnly("org.postgresql:postgresql:42.5.4")
 
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0")

@@ -13,12 +13,13 @@ spring:
       enabled: true
 
   datasource:
-    url: jdbc:h2:mem:testdb?MODE=MYSQL;
+    url: jdbc:postgresql://localhost:54320/realworld?user=postgres&password=sekrit
+    driver-class-name: org.postgresql.Driver
 
   jpa:
     open-in-view: false
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
 
 decorator:
   datasource:
