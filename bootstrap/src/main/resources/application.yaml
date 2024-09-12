@@ -13,7 +13,7 @@ spring:
       enabled: true
 
   datasource:
-    url: jdbc:postgresql://localhost:54320/realworld?user=postgres&password=sekrit
+    url: jdbc:postgresql://localhost:54320/orders?user=postgres&password=sekrit
     driver-class-name: org.postgresql.Driver
 
   jpa:
