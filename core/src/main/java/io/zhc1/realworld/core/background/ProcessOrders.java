@@ -59,10 +59,10 @@ public class ProcessOrders {
                 continue;
             }
 
+            order.setProcessed(true);
             orderService.update(order);
             System.out.println("ORDER HAS BEEN GHOSTED");
         }
-
     }
 
     private void createOrders(Faker faker){
