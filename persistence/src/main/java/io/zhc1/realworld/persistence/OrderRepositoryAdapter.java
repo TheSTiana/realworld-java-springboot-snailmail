@@ -37,6 +37,11 @@ public class OrderRepositoryAdapter implements OrderRepository {
     }
 
     @Override
+    public List<Order> findByProcessedFalse() {
+        return orderJpaRepository.findByProcessedFalse();
+    }
+
+    @Override
     @Transactional
     public void delete(Order order) {
         orderJpaRepository.delete(order);

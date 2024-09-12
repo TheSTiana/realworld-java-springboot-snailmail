@@ -36,6 +36,15 @@ public class Order {
     @Column(nullable = false)
     private double totalPrice;
 
+    @Column(nullable = false)
+    boolean processed;
+
+    @Column(nullable = false)
+    boolean problemsWithSnailMailAddress;
+
+    @Column(nullable = false)
+    int numberOfErrorsWithSupplierProcessing;
+
     public Order(Article article, User customer, String snailMail) {
         if (article == null || article.getId() == null) {
             throw new IllegalArgumentException("article is null or not saved article.");
@@ -50,6 +59,9 @@ public class Order {
         this.customer = customer;
         this.snailMail = snailMail;
         this.totalPrice = article.getDigitalPrice() + article.getPhysicalPrice();
+        this.processed = false;
+        this.problemsWithSnailMailAddress = false;
+        this.numberOfErrorsWithSupplierProcessing = 0;
     }
 
     public Order(Article article, User customer) {
@@ -63,6 +75,25 @@ public class Order {
         this.customer = customer;
         this.snailMail = null;
         this.totalPrice = article.getDigitalPrice();
+        this.processed = false;
+        this.problemsWithSnailMailAddress = false;
+        this.numberOfErrorsWithSupplierProcessing = 0;
+    }
+
+    public  boolean shouldSendPhysicalCopy(){
+        return this.snailMail != null;
+    }
+
+    public boolean isToManyErrors() {
+        return numberOfErrorsWithSupplierProcessing >= 2;
+    }
+
+    public String getCustomerEmail(){
+        return customer.getEmail();
+    }
+
+    public void increaseErrors(){
+        numberOfErrorsWithSupplierProcessing++;
     }
 
     @Override
@@ -73,5 +104,20 @@ public class Order {
     @Override
     public int hashCode() {
         return Objects.hash(this.getId());
+    }
+
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer();
+        sb.append("Title: ").append(article.getTitle()).append("\n");;
+        sb.append("Customer: ").append(customer.getUsername()).append("\n");
+        if (snailMail != null) {
+            sb.append("SnailMail: ").append(snailMail).append("\n");
+        }
+        sb.append("TotalPrice: ").append(totalPrice).append("\n");
+        sb.append("Processed: ").append(processed).append("\n");
+        sb.append("Shit snailmail: ").append(problemsWithSnailMailAddress).append("\n");
+        sb.append("Errors: ").append(numberOfErrorsWithSupplierProcessing).append("\n");
+        return sb.toString();
     }
 }

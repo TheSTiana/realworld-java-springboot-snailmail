@@ -26,8 +26,11 @@ public class OrderService {
         return orderRepository.findByCustomer(user);
     }
 
+    public List<Order> getUnprocessedOrders() {return orderRepository.findByProcessedFalse();}
+
     public Order create(Order order) {
         return orderRepository.save(order);
     }
 
+    public Order update(Order order) {return orderRepository.save(order);}
 }

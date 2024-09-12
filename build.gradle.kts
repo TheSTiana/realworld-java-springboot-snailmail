@@ -39,6 +39,8 @@ allprojects {
 
         implementation("org.springframework.boot:spring-boot-starter")
         testImplementation("org.springframework.boot:spring-boot-starter-test")
+
+        implementation ("net.datafaker:datafaker:1.5.0")
     }
 
     tasks.withType<Test> {

@@ -13,6 +13,8 @@ public interface OrderRepository {
 
     List<Order> findByCustomer(User customer);
 
+    List<Order> findByProcessedFalse();
+
     void delete(Order order);
 
 }
