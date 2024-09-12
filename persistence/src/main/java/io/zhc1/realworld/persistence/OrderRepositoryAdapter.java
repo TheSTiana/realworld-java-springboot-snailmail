@@ -1,4 +1,5 @@
 package io.zhc1.realworld.persistence;
+
 import io.zhc1.realworld.core.model.Article;
 import io.zhc1.realworld.core.model.Order;
 import io.zhc1.realworld.core.model.OrderRepository;

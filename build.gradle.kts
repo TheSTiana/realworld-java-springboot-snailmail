@@ -33,6 +33,7 @@ allprojects {
     }
 
     dependencies {
+        implementation("org.springframework.boot:spring-boot-starter-quartz")
         compileOnly("org.projectlombok:lombok")
         annotationProcessor("org.projectlombok:lombok")
 

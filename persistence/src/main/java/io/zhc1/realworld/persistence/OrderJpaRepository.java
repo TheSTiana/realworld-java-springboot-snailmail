@@ -12,6 +12,4 @@ interface OrderJpaRepository extends JpaRepository<Order, Integer> {
 
     List<Order> findByCustomer(User customer);
 
-
 }
-
