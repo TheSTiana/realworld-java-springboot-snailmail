@@ -46,6 +46,12 @@ public class Article {
     @Column(length = 1_000, nullable = false)
     private String content;
 
+    @Column(nullable = false)
+    private double digitalPrice;
+
+    @Column(nullable = false)
+    private double physicalPrice;
+
     @OneToMany(mappedBy = "article", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private final Set<ArticleTag> articleTags = new HashSet<>();
 
@@ -77,6 +83,31 @@ public class Article {
         this.title = title;
         this.description = description;
         this.content = content;
+        this.digitalPrice = 0;
+        this.physicalPrice = 0;
+    }
+
+    public Article(User author, String title, String description, String content, double digitalPrice, double physicalPrice) {
+        if (author == null || author.getId() == null) {
+            throw new IllegalArgumentException("author is null or unknown user.");
+        }
+        if (title == null || title.isBlank()) {
+            throw new IllegalArgumentException("title is null or blank.");
+        }
+        if (description == null || description.isBlank()) {
+            throw new IllegalArgumentException("description is null or blank.");
+        }
+        if (content == null || content.isBlank()) {
+            throw new IllegalArgumentException("content is null or blank.");
+        }
+
+        this.author = author;
+        this.slug = Article.titleToSlug(title);
+        this.title = title;
+        this.description = description;
+        this.content = content;
+        this.digitalPrice = digitalPrice;
+        this.physicalPrice = physicalPrice;
     }
 
     public boolean isNotAuthor(User author) {
