@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Component
 public class ProcessOrders {
@@ -91,16 +92,28 @@ public class ProcessOrders {
     }
 
     private Article createFakeArticle(Faker faker){
-        String title = faker.book().title();
-        String description = faker.lorem().sentence();
-        String content = faker.lorem().paragraph();
+        boolean retry = true;
         double digitalPrice = faker.number().numberBetween(10, 90);
+        String title;
+        String description;
+        String content;
+        boolean ex;
 
-        while(title.length() > 50 || description.length() > 50 || content.length() > 1000){
+        do{
             title = faker.book().title();
             description = faker.lorem().sentence();
             content = faker.lorem().paragraph();
+
+            try{
+                articleService.getArticle(titleToSlug(title));
+                ex = false;
+            }
+            catch (NoSuchElementException e){
+                ex = true;
+            }
+            retry = title.length() > 50 || description.length() > 50 || content.length() > 1000 || ex;
         }
+        while (retry);
 
         Article article = new Article(createFakeUser(faker), title, description, content, digitalPrice, digitalPrice + 15);
         Collection<Tag> tags = new ArrayList<>();
@@ -122,4 +135,9 @@ public class ProcessOrders {
         }
         return orderService.create(new Order(article, customer, snailMail));
     }
+
+    private static String titleToSlug(String title) {
+        return title.toLowerCase().replaceAll("\\s+", "-");
+    }
+
 }
